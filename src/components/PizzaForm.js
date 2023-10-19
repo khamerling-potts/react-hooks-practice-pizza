@@ -1,8 +1,8 @@
 import React from "react";
 
-function PizzaForm() {
+function PizzaForm({ currentPizza, setCurrentPizza, onSubmitPizza }) {
   return (
-    <form onSubmit={null /*handle that submit*/}>
+    <form onSubmit={onSubmitPizza}>
       <div className="form-row">
         <div className="col-5">
           <input
@@ -10,10 +10,21 @@ function PizzaForm() {
             type="text"
             name="topping"
             placeholder="Pizza Topping"
+            value={currentPizza.topping}
+            onChange={(e) =>
+              setCurrentPizza({ ...currentPizza, topping: e.target.value })
+            }
           />
         </div>
         <div className="col">
-          <select className="form-control" name="size">
+          <select
+            className="form-control"
+            name="size"
+            value={currentPizza.size}
+            onChange={(e) =>
+              setCurrentPizza({ ...currentPizza, size: e.target.value })
+            }
+          >
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
@@ -26,6 +37,13 @@ function PizzaForm() {
               type="radio"
               name="vegetarian"
               value="Vegetarian"
+              checked={currentPizza.vegetarian}
+              onChange={(e) =>
+                setCurrentPizza({
+                  ...currentPizza,
+                  vegetarian: e.target.checked,
+                })
+              }
             />
             <label className="form-check-label">Vegetarian</label>
           </div>
@@ -35,6 +53,13 @@ function PizzaForm() {
               type="radio"
               name="vegetarian"
               value="Not Vegetarian"
+              checked={!currentPizza.vegetarian}
+              onChange={(e) =>
+                setCurrentPizza({
+                  ...currentPizza,
+                  vegetarian: !e.target.checked,
+                })
+              }
             />
             <label className="form-check-label">Not Vegetarian</label>
           </div>
